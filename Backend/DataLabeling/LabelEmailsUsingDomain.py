@@ -1,9 +1,8 @@
 import tldextract
 from world.database import Database # Source: https://gitlab.com/warsaw/world
-from collections import defaultdict # Source: https://github.com/john-kurkowski/tldextract
 import json
 
-def create_origin_label(path):
+def create_origin_label(path, domains_count):
     """
         Gets a path to a file containg rows of 'email:password' pairs and returns an array of json of the following format:
         {{\n
@@ -17,7 +16,6 @@ def create_origin_label(path):
     file = open(path, 'rb')
     emailPasswordPairs = file.readlines()
     db = Database()
-    domains_count = defaultdict(int)
     for emailPasswordPair in emailPasswordPairs:
         string_content = emailPasswordPair.decode('unicode_escape')
         try:
@@ -31,7 +29,7 @@ def create_origin_label(path):
             "password": password,
             "country": country
         }
-        json_array.append(json.dumps(curr_json))
+        json_array.append(json.dumps(curr_json, indent=4))
         domains_count[country] += 1
     return json_array
     
@@ -59,6 +57,4 @@ def parse_domain(email):
     tld = suffix.split(".")[-1]
     return tld
 
-path = "C:/Users/nirfi/Downloads/BreachCompilation/data/i/u"
-
-create_origin_label(path)
+# create_origin_label(path)
