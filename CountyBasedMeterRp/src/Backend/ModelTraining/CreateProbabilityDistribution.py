@@ -21,7 +21,7 @@ def save_distribution(data: dict, file_name: str, path: str):
         for key,value in data.items():
             file.write(f"{key} {value}\n")
 
-def enrich_counts_from_files(file_path: str, base_word_count: defaultdict, prefix_count: defaultdict, suffix_count: defaultdict, shift_pattern_count: defaultdict, ilegal_passwords: int):
+def enrich_counts_from_files(file_path: str, base_word_count: defaultdict, prefix_count: defaultdict, suffix_count: defaultdict, shift_pattern_count: defaultdict, leet_pattern_count: defaultdict, ilegal_passwords: int):
     """
         Enriches the provided dictionaries according to the passowrds in the provided path
     """
@@ -35,8 +35,6 @@ def enrich_counts_from_files(file_path: str, base_word_count: defaultdict, prefi
             [prefix, base_word, suffix] = PasswordDetailsUtils.parse_password_to_3d(password)
             if suffix_count != None:
                 suffix_count[suffix] += 1
-            if base_word_count != None:
-                base_word_count[base_word.lower()] += 1
             if prefix_count != None:
                 prefix_count[prefix] += 1
             if shift_pattern_count != None:
@@ -45,6 +43,12 @@ def enrich_counts_from_files(file_path: str, base_word_count: defaultdict, prefi
                     shift_pattern_as_string = "all-cap"
                 shift_pattern_as_string = str(shift_pattern)
                 shift_pattern_count[shift_pattern_as_string] += 1
+            if leet_pattern_count != None:
+                (leet_pattern, base_word) = PasswordDetailsUtils.get_base_word_leet_pattern(base_word)
+                leet_pattern_as_string = str(leet_pattern)
+                leet_pattern_count[leet_pattern_as_string] += 1
+            if base_word_count != None:
+                base_word_count[base_word.lower()] += 1
     return ilegal_passwords
 
 def count_to_distribution(count_dict: defaultdict):
@@ -65,7 +69,7 @@ def count_to_distribution(count_dict: defaultdict):
         sorted_distribution_dict = dict(sorted(distribution_dict.items()))
         return sorted_distribution_dict
     
-def create_probability_disribution(path: str, get_prefix: bool, get_base_word: bool, get_suffix: bool, get_shift_pattern: bool):
+def create_probability_disribution(path: str, get_prefix: bool, get_base_word: bool, get_suffix: bool, get_shift_pattern: bool, get_leet_pattern: bool):
     """
         Calculates the probability distribution of all the passwords under the provided path \n
         Args:
@@ -79,19 +83,20 @@ def create_probability_disribution(path: str, get_prefix: bool, get_base_word: b
     base_word_count = defaultdict(int) if get_base_word else None
     suffix_count = defaultdict(int) if get_suffix else None
     shift_pattern_count = defaultdict(int) if get_shift_pattern else None
+    leet_pattern_count = defaultdict(int) if get_leet_pattern else None
     ilegal_passwords = 0
     for root, _, files in os.walk(path):
         for file in files:
             file_path = os.path.join(root, file)
-            ilegal_passwords = enrich_counts_from_files(file_path, base_word_count, prefix_count, suffix_count, shift_pattern_count, ilegal_passwords)
+            ilegal_passwords = enrich_counts_from_files(file_path, base_word_count, prefix_count, suffix_count, shift_pattern_count, leet_pattern_count, ilegal_passwords)
     prefix_distribution_dict = count_to_distribution(prefix_count)
     base_word_distribution_dict = count_to_distribution(base_word_count)
     suffix_distribution_dict = count_to_distribution(suffix_count)
     shift_pattern_distribution_dict = count_to_distribution(shift_pattern_count)
+    leet_pattern_distribution_dict = count_to_distribution(leet_pattern_count)
     save_distribution(prefix_distribution_dict, "a1", path)
     save_distribution(base_word_distribution_dict, "a2", path)
     save_distribution(suffix_distribution_dict, "a3", path)
     save_distribution(shift_pattern_distribution_dict, "a4", path)
+    save_distribution(leet_pattern_distribution_dict, "a5", path)
     print(f"Ilegal passwords: {ilegal_passwords}")
-
-create_probability_disribution("C:\\Users\\nirfi\\Desktop\\data_by_country\\Japan", True, True, True, True)

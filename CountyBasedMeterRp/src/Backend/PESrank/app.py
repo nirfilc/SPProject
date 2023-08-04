@@ -3,8 +3,8 @@ import PESrank
 
 app = Flask(__name__)
 
-@app.route('/api/post_data', methods=['POST'])
-def post_data():
+@app.route('/api/getPasswordStrength', methods=['POST'])
+def getPasswordStrength():
     data = request.get_json()
 
     if 'username' not in data or 'password' not in data:
@@ -19,8 +19,7 @@ def post_data():
 
     return jsonify({'message': 'Data received successfully',
                     'username': username,
-                    'password': '******',
-                    'country': country
+                    'result': res
                     })
 
 if __name__ == '__main__':

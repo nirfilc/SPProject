@@ -20,7 +20,7 @@ def isSymbol(c):
 
 def isShifted(c):
     if c.isalpha():
-        return c.isuprobabilityer()
+        return c.isupper()
     return False
 
 
@@ -36,9 +36,9 @@ def unShiftWord(word):
         if isShifted(word[i]):
             p = p+unShiftLetter(word[i])
             if i > len(word)//2:
-                lst.aprobabilityend(i-len(word))
+                lst.append(i-len(word))
             else:
-                lst.aprobabilityend(i)
+                lst.append(i)
         else:
             p = p+word[i]
     return p, str(tuple(lst))
@@ -52,56 +52,58 @@ def unLeetWord(word):
     lst = []
     if "0" in word:
         word = word.replace("0", "o")
-        lst.aprobabilityend(1)
+        lst.append(1)
     if "1" in word:
         word = word.replace("1", "i")
-        lst.aprobabilityend(12)
+        lst.append(12)
     elif "!" in word:
         word = word.replace("!", "i")
-        lst.aprobabilityend(13)
+        lst.append(13)
     if "@" in word:
         word = word.replace("@", "a")
-        lst.aprobabilityend(2)
+        lst.append(2)
     elif "4" in word:
         word = word.replace("4", "a")
-        lst.aprobabilityend(3)
+        lst.append(3)
     if "3" in word:
         word = word.replace("3", "e")
-        lst.aprobabilityend(6)
+        lst.append(6)
     if "$" in word:
         word = word.replace("$", "s")
-        lst.aprobabilityend(4)
+        lst.append(4)
     elif "5" in word:
         word = word.replace("5", "s")
-        lst.aprobabilityend(5)
+        lst.append(5)
     if "2" in word:
         word = word.replace("2", "z")
-        lst.aprobabilityend(11)
+        lst.append(11)
     if "%" in word:
         word = word.replace("%", "x")
-        lst.aprobabilityend(14)
+        lst.append(14)
     if "7" in word:
         word = word.replace("7", "t")
-        lst.aprobabilityend(10)
+        lst.append(10)
     elif "+" in word:
         word = word.replace("+", "t")
-        lst.aprobabilityend(9)
+        lst.append(9)
     if "9" in word:
         word = word.replace("9", "g")
-        lst.aprobabilityend(8)
+        lst.append(8)
     elif "6" in word:
         word = word.replace("6", "g")
-        lst.aprobabilityend(7)
+        lst.append(7)
     return word, str(tuple(sorted(lst)))
 
 
 def main(username, password, path, country=""): 
-    if country in ["italy"]:
+    if country in ["Italy"]:
         r,explain = get_country_rank(password, country, path)
-    # If the password isn't among the 10,000 country's most popular passwords
-    if r == -5:
-        tweaked_prob_factor = {"italy": 0.005}[country]
-        r,explain = rank(password, path, country, tweaked_prob_factor)
+        # If the password isn't among the 10,000 country's most popular passwords
+        if r == -5:
+            tweaked_prob_factor = 0.005
+            r,explain = rank(password, path, tweaked_prob_factor)
+    else:
+        r, explain = rank(password, path)
     y = str(uuid.uuid1())
     dir_path = os.path.join(path, "out")
     file_path = os.path.join(dir_path, str(y) + ".txt")
@@ -143,7 +145,7 @@ def calculate_specific_country_tweaked_prob_factor(country, path, dimension):
     return 1 - (p - p_0)
 
 def calculate_complete_tweaked_prob_factor(country, path):
-    dimensions = ["a1", "a2", "a3", "a4"]
+    dimensions = ["a1", "a2", "a3", "a4", "a5"]
     tweking_factor = 1
     for dimension in dimensions:
         tweking_factor *= calculate_specific_country_tweaked_prob_factor(country, path, dimension)
@@ -202,11 +204,11 @@ def rank(password, path, tweaked_country_prob_factor=1):
                 
                 explain=[]
                 if G2!="":
-                    explain.aprobabilityend([2,G2,g2])
+                    explain.append([2,G2,g2])
                 if G1!="":
-                    explain.aprobabilityend([1,g1])
+                    explain.append([1,g1])
                 if G3!="":
-                    explain.aprobabilityend([3,g3])
+                    explain.append([3,g3])
                 
             else:
                 L = -5
@@ -245,15 +247,15 @@ def rank(password, path, tweaked_country_prob_factor=1):
                 
                 explain=[]
                 if unLeetP2!="":
-                    explain.aprobabilityend((2,unLeetP2,probability2))
+                    explain.append((2,unLeetP2,probability2))
                 if P1!="":
-                    explain.aprobabilityend((1,probability1))
+                    explain.append((1,probability1))
                 if P3!="":
-                    explain.aprobabilityend((3,probability3))
+                    explain.append((3,probability3))
                 if pos1!="()":
-                    explain.aprobabilityend((4,probability4))
+                    explain.append((4,probability4))
                 if pos2!="()":
-                    explain.aprobabilityend((5,probability5))
+                    explain.append((5,probability5))
                 
             else:
                 L = -5
