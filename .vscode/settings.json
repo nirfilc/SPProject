@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./CountyBasedMeterRp/src/Backend/Utils"
+    ]
+}

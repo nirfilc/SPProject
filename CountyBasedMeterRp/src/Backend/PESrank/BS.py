@@ -1,6 +1,5 @@
-
 def main(name, key):
-    with open(name, "r") as fp:
+    with open(name, "r", encoding='unicode_escape') as fp:
         fp.seek(0, 2)
         begin = 0
         end = fp.tell()
@@ -29,11 +28,15 @@ def main(name, key):
             prev = (end + begin) / 2
             fp.readline()
             line = fp.readline().strip().split()
-            password = line[0]
-            for i in line[1:-1]:
-                password = password+" "+i
-            line_key = password
-            pp = line[-1]
+            if len(line) == 1:
+                line_key = ""
+                pp = line[0]
+            else:
+                password = line[0]
+                for i in line[1:-1]:
+                    password = password+" "+i
+                line_key = password
+                pp = line[-1]
             if (key == line_key):
                 return pp
             elif (key > line_key):

@@ -1,10 +1,13 @@
+import codecs
+import re
+
 def get_first_letter_index(password: str):
     """
         Gets the index of the first letter of the password
     """
     start_index = 0
     for index, char in enumerate(password):
-        if char.isalpha():
+        if char .isalpha():
             start_index = index
             break
     return start_index
@@ -62,3 +65,31 @@ def is_leagal_password(password):
         Source: isascci() here - https://github.com/lirondavid/PESrank/blob/master/PESrank/PESrank.py#L47
     """
     return all(ord(c) < 128 for c in password)
+
+def get_base_word_leet_pattern(password):
+    leet_pattern = []
+    unleet_password = ""
+    leet_transformations_dict = {"0": (1, "o"), "@": (2, "a"), "4": (3, "a"), "$": (4, "s"), "5": (5, "s"), "3": (6, "e"), 6: (7, "g"), 9: (8, "g"), "+": (9, "t"), "7": (10, "t"), "2": (11, "z"), "1": (12, "i"), "!": (13, "i"), "%": (14, "x")}
+    unleet_letters = set()
+    for (_, letter) in enumerate(password):
+        if letter in leet_transformations_dict.keys():
+            (index, unleet_letter) = leet_transformations_dict[letter]
+            unleet_password += unleet_letter
+            if unleet_letter in unleet_letters:
+                continue
+            unleet_letters.add(unleet_letter)
+            leet_pattern.append(index)
+        else:
+            unleet_password += letter
+    return tuple(leet_pattern), unleet_password
+
+def escape_password(password: str):
+    escape_password = codecs.encode(password, 'unicode_escape')
+    return escape_password
+
+# a = "asdasd"
+# b = codecs.encode(a, 'unicode_escape')
+# d = codecs.decode(a, 'unicode_escape')
+# c = 1 + 1
+
+
