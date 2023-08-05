@@ -1,4 +1,3 @@
-import codecs
 import os
 import math
 import time
