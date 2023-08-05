@@ -1,6 +1,5 @@
-
 def main(name, key):
-    with open(name, "r") as fp:
+    with open(name, "r", encoding='unicode_escape') as fp:
         fp.seek(0, 2)
         begin = 0
         end = fp.tell()

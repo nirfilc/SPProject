@@ -1,10 +1,13 @@
+import codecs
+import re
+
 def get_first_letter_index(password: str):
     """
         Gets the index of the first letter of the password
     """
     start_index = 0
     for index, char in enumerate(password):
-        if char.isalpha():
+        if char .isalpha():
             start_index = index
             break
     return start_index
@@ -79,6 +82,14 @@ def get_base_word_leet_pattern(password):
         else:
             unleet_password += letter
     return tuple(leet_pattern), unleet_password
-        
+
+def escape_password(password: str):
+    escape_password = codecs.encode(password, 'unicode_escape')
+    return escape_password
+
+# a = "asdasd"
+# b = codecs.encode(a, 'unicode_escape')
+# d = codecs.decode(a, 'unicode_escape')
+# c = 1 + 1
 
 

@@ -16,10 +16,10 @@ def save_distribution(data: dict, file_name: str, path: str):
     distribution_path = "distribution"
     result_dir_path = path + "\\" + distribution_path
     Path(result_dir_path).mkdir(parents=True, exist_ok=True)
-    file_name = result_dir_path + "\\" + file_name + ".json"
+    file_name = result_dir_path + "\\" + file_name + ".txt"
     with open(file_name, "w") as file :
         for key,value in data.items():
-            file.write(f"{key} {value}\n")
+            file.write(f"{repr(key)[1:-1]} {value}\n")
 
 def enrich_counts_from_files(file_path: str, base_word_count: defaultdict, prefix_count: defaultdict, suffix_count: defaultdict, shift_pattern_count: defaultdict, leet_pattern_count: defaultdict, ilegal_passwords: int):
     """
@@ -100,3 +100,9 @@ def create_probability_disribution(path: str, get_prefix: bool, get_base_word: b
     save_distribution(shift_pattern_distribution_dict, "a4", path)
     save_distribution(leet_pattern_distribution_dict, "a5", path)
     print(f"Ilegal passwords: {ilegal_passwords}")
+
+
+countries = ["Italy"]
+base_path = "C:\\Users\\nirfi\\Desktop\\data_by_country\\"
+for country in countries:
+    create_probability_disribution(base_path + country, True, True, True, True, True)
