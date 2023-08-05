@@ -5,21 +5,25 @@ app = Flask(__name__)
 
 @app.route('/api/getPasswordStrength', methods=['POST'])
 def getPasswordStrength():
-    data = request.get_json()
+    # data = request.get_json()
 
-    if 'username' not in data or 'password' not in data:
-        return jsonify({'error': 'Missing required properties'}), 400
+    # if 'username' not in data or 'password' not in data:
+    #     return jsonify({'error': 'Missing required properties'}), 400
 
-    username = data['username']
-    password = data['password']
-    country = data.get('country', '')
+    # username = data['username']
+    # password = data['password']
+    # country = data.get('country', '')
 
-    res = PESrank.main(username, password, "C:\\Users\\nirfi\\Desktop\\text_files", country)
+    # res = PESrank.main(username, password, "C:\\Users\\nirfi\\Desktop\\text_files", country)
 
 
-    return jsonify({'message': 'Data received successfully',
-                    'username': username,
-                    'result': res
+    # return jsonify({'message': 'Data received successfully',
+    #                 'username': username,
+    #                 'result': res
+    #                 })
+        return jsonify({'message': 'Data received successfully',
+                    'username': "a",
+                    'result': "a"
                     })
 
 if __name__ == '__main__':
