@@ -1,5 +1,5 @@
 def main(name, key):
-    with open(name, "r", encoding='unicode_escape') as fp:
+    with open(name, "r") as fp:
         fp.seek(0, 2)
         begin = 0
         end = fp.tell()
@@ -11,12 +11,14 @@ def main(name, key):
                 if max(begin-100, 0) != 0:
                     fp.readline()
                 while(fp.tell() < end):
-                    line = fp.readline().strip().split()
+                    str_line = fp.readline()
+                    line = str_line.split()
                     if len(line) == 1:
                         line_key = ""
                         pp = line[0]
                     else:
-                        password = line[0]
+                        last_space_index = str_line.rfind(" ")
+                        password = str_line[:last_space_index]
                         for i in line[1:-1]:
                             password = password+" "+i
                         line_key = password
@@ -27,12 +29,14 @@ def main(name, key):
 
             prev = (end + begin) / 2
             fp.readline()
-            line = fp.readline().strip().split()
+            str_line = fp.readline()
+            line = str_line.split()
             if len(line) == 1:
                 line_key = ""
                 pp = line[0]
             else:
-                password = line[0]
+                last_space_index = str_line.rfind(" ")
+                password = str_line[:last_space_index]
                 for i in line[1:-1]:
                     password = password+" "+i
                 line_key = password
@@ -59,14 +63,14 @@ def main4(name, key):
                 if max(begin-100, 0) != 0:
                     fp.readline()
                 while(fp.tell() < end):
-                    line = fp.readline().strip().split(")")
+                    line = fp.readline().replace("]", ")").replace("[", "(").split(")")
                     line_key = line[0]+")"
                     if (key == line_key):
                         return line[1]
                 return None
             prev = (end + begin) / 2
             fp.readline()
-            line = fp.readline().strip().split(")")
+            line = fp.readline().replace("]", ")").replace("[", "(").split(")")
             line_key = line[0]+")"
             if (key == line_key):
                 return line[1]

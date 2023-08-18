@@ -117,40 +117,6 @@ def get_country_rank(password, country, path):
     path = os.path.join(path, country)
     return rank(password, path)
 
-def calculate_specific_country_tweaked_prob_factor(country, path, dimension):
-    """
-        To be calcullated once offline.
-        Sums the probabilities of the 10,000 most popular password of country in the general distribution = p_0.
-        Then, sums the probability of these passwords in the country's specific distribution = p
-        Returns the tweaking factor by this calculation: 1 - (p - p_0)
-    """
-    path = os.path.join(path, country, dimension + ".txt")
-    p_0, p = 0, 0
-    with open(path, "r") as fp:
-        # TODO - check splitting part of password, prob lines
-        line = fp.readline().strip().split()
-        if len(line) == 1:
-            word = ""
-            probability = line[0]
-        else:
-            password = line[0]
-            for i in line[1:-1]:
-                password = password+" "+i
-            word = password
-            probability = line[-1]
-        # TODO - add some assertions that the word exists in the general dist and that for each word p > p_0
-        p += probability
-        word_general_p = BS.main(path, word) 
-        p_0 += word_general_p if word_general_p else 0
-    return 1 - (p - p_0)
-
-def calculate_complete_tweaked_prob_factor(country, path):
-    dimensions = ["a1", "a2", "a3", "a4", "a5"]
-    tweking_factor = 1
-    for dimension in dimensions:
-        tweking_factor *= calculate_specific_country_tweaked_prob_factor(country, path, dimension)
-    return tweking_factor
-
 def rank(password, path, tweaked_country_prob_factor=1):        
     a1_path = os.path.join(path, "a1.txt")
     a2_path = os.path.join(path, "a2.txt")
@@ -199,7 +165,7 @@ def rank(password, path, tweaked_country_prob_factor=1):
                 probability4 = BS.main4(a4_path, pos1)
                 probability5 = BS.main4(a5_path, pos2)
                 prob = maxProb*float(probability4)*float(probability5)*tweaked_country_prob_factor
-                L = ESrank.main2(rank_config.L1, rank_config.L2, prob, 14)
+                L = ESrank.main2(rank_config.L1, rank_config.L2, prob, 800)
                 L = sum(L)/2
                 
                 explain=[]
@@ -242,7 +208,7 @@ def rank(password, path, tweaked_country_prob_factor=1):
             # TODO We should return independet info about each part so that if one part is weak we'll infrom the user even if other parts where not found and are None
             if (probability1 != None and probability2 != None and probability3 != None and probability4 != None and probability5 != None):
                 prob = float(probability1)*float(probability2)*float(probability3)*float(probability4)*float(probability5)*tweaked_country_prob_factor
-                L = ESrank.main2(rank_config.L1, rank_config.L2, prob, 14)
+                L = ESrank.main2(rank_config.L1, rank_config.L2, prob, 800)
                 L = sum(L)/2
                 
                 explain=[]

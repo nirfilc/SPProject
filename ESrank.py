@@ -1,4 +1,3 @@
-
 def sample(P, gamma, b):
     S = [(P[i], i+1) for i in range(b)]
     i = b+1
