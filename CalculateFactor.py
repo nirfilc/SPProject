@@ -35,5 +35,3 @@ def calculate_complete_tweaked_prob_factor(country, path):
     for dimension in dimensions:
         tweking_factor *= calculate_specific_country_tweaked_prob_factor(country, path, dimension)
     return tweking_factor
-
-def create_top_n_passwords
