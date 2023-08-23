@@ -6,6 +6,9 @@ import ESrank
 import BS
 import rank_config
 from pathlib import Path
+import json
+
+import tweakingFactors
 
 def keyBoard(word):
     for w in word:
@@ -96,11 +99,11 @@ def unLeetWord(word):
 
 
 def main(username, password, path, country=""): 
-    if country in ["Italy"]:
-        r,explain = get_country_rank(password, country, path)
+    if country in ["China", "France", "Germany", "Japan", "Poland", "United Kingdom (common practice)", "Italy", "India"]:
+        r,explain = get_country_rank(password, country, "C:\\Users\\nirfi\\Desktop\\data_by_country\\new_data")
         # If the password isn't among the 10,000 country's most popular passwords
         if r == -5:
-            tweaked_prob_factor = 0.005
+            tweaked_prob_factor = tweakingFactors.tweakingFactor[country]["total"]
             r,explain = rank(password, path, tweaked_prob_factor)
     else:
         r, explain = rank(password, path)
@@ -165,7 +168,7 @@ def rank(password, path, tweaked_country_prob_factor=1):
                 probability4 = BS.main4(a4_path, pos1)
                 probability5 = BS.main4(a5_path, pos2)
                 prob = maxProb*float(probability4)*float(probability5)*tweaked_country_prob_factor
-                L = ESrank.main2(rank_config.L1, rank_config.L2, prob, 800)
+                L = ESrank.main2(rank_config.L1, rank_config.L2, prob, 14)
                 L = sum(L)/2
                 
                 explain=[]
@@ -208,7 +211,7 @@ def rank(password, path, tweaked_country_prob_factor=1):
             # TODO We should return independet info about each part so that if one part is weak we'll infrom the user even if other parts where not found and are None
             if (probability1 != None and probability2 != None and probability3 != None and probability4 != None and probability5 != None):
                 prob = float(probability1)*float(probability2)*float(probability3)*float(probability4)*float(probability5)*tweaked_country_prob_factor
-                L = ESrank.main2(rank_config.L1, rank_config.L2, prob, 800)
+                L = ESrank.main2(rank_config.L1, rank_config.L2, prob, 14)
                 L = sum(L)/2
                 
                 explain=[]
