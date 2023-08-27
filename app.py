@@ -16,16 +16,16 @@ def getPasswordStrength():
     username = data['username']
     password = data['password']
     country = data.get('country', '')
-    try:
-        res = PESrank.main(username, password, path, country)
-    except Exception as e:
-        print(e)
-        return jsonify({'error': 'Something went wrong'}), 500
+    # try:
+    #     res = PESrank.main(username, password, path, country)
+    # except Exception as e:
+    #     print(e)
+    #     return jsonify({'error': 'Something went wrong'}), 500
 
 
     return jsonify({'message': 'Data received successfully',
                     'username': username,
-                    'result': res
+                    'result': "res"
                     })
 
 if __name__ == '__main__':
