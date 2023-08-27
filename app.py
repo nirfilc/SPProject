@@ -3,7 +3,12 @@ from flask_cors import CORS
 import PESrank
 
 app = Flask(__name__)
-CORS(app)
+allowed_headers = ["Content-Type", "Authorization"]
+allowed_methods = ["GET", "POST", "OPTIONS"] 
+
+CORS(app, origins='*',
+    allow_headers=allowed_headers,
+    methods=allowed_methods)
 
 @app.route('/api/getPasswordStrength', methods=['POST'])
 def getPasswordStrength():
