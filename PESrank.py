@@ -127,6 +127,8 @@ def rank(password, path, tweaked_country_prob_factor=1):
     a4_path = os.path.join(path, "a4.txt")
     a5_path = os.path.join(path, "a5.txt")
 
+    L = -5
+    explain=[]
     first = True
     last = True
     f = len(password)
