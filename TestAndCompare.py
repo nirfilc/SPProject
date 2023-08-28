@@ -2,7 +2,7 @@ import PESrank
 import json
 import os
 
-folder_path = "// path to test folder"
+folder_path = "/Users/skhatib/Downloads/test-data/"
 
 
 countries_list = ['Russion Federation (the)', 'Germany', 'France', 'United Kingdom (common practice)', 'Italy', 'Poland', 'China', 'Japan']
@@ -21,8 +21,11 @@ for root, dirs, files in os.walk(folder_path):
                 password = entry['password']
                 country = entry['country']
 
-                [rank_1,explain_1] = PESrank.main(email, password, "missing-path")
-                [rank_2,explain_2] = PESrank.main(email, password, "missing-path", country)
+                res1 = PESrank.main(email, password, "/Users/skhatib/Downloads/PESrank")
+                res2 = PESrank.main(email, password, "/Users/skhatib/Downloads/PESrank", country)
+
+                [rank_1,explain_1] = res1
+                [rank_2,explain_2] = res2
 
                 if country in general_data:
                      values_dict = general_data.get(country)
@@ -46,19 +49,3 @@ with open('test_output_general.json', 'w') as file:
 with open('test_output_countries.json', 'w') as file:
      json.dump(top_countries_data, file, indent=4)
                 
-
-                
-                     
-
-            
-
-
-
-
-
-
-
-
-
-
-
