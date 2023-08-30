@@ -5,7 +5,7 @@ import os
 folder_path = "/Users/skhatib/Downloads/test-data/"
 
 
-countries_list = ['Russion Federation (the)', 'Germany', 'France', 'United Kingdom (common practice)', 'Italy', 'Poland', 'China', 'Japan', 'Ukraine']
+countries_list = ['Russion Federation (the)', 'Germany', 'France', 'United Kingdom (common practice)', 'Italy', 'Poland', 'China', 'Japan']
 general_data = {}
 top_countries_data = {}
 
