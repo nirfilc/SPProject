@@ -1,13 +1,12 @@
 import os
+import sys
 import ESrank
 
 def main():
-    d = 5
-    gamma = 1.09
-    b = 800
-    base_path = "C:\\Users\\nirfi\\Desktop\\data_by_country\\Italy\\distribution"
-    base_path = "C:\\Users\\nirfi\\Desktop\\text_files"
-    base_path = "C:\\Users\\nirfi\\Downloads\\BreachCompilation\\data"
+    base_path = sys.argv[1]
+    d = int(sys.argv[2])
+    gamma = float(sys.argv[3])
+    b = int(sys.argv[4])
     P = []
     for i in range(1, d + 1):
         path = os.path.join(base_path, "a" + str(i) + ".txt")
