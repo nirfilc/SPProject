@@ -4,9 +4,8 @@ import time
 import uuid
 import ESrank
 import BS
-import rank_config
 from pathlib import Path
-import json
+import config_countries
 
 import tweakingFactors
 
@@ -100,13 +99,13 @@ def unLeetWord(word):
 
 def main(username, password, path, country=""): 
     if country in ["China", "France", "Germany", "Japan", "Poland", "United Kingdom (common practice)", "Italy", "India"]:
-        r,explain = get_country_rank(password, country, "C:\\Users\\nirfi\\Desktop\\data_by_country\\new_data")
+        r,explain = get_country_rank(password, country, path)
         # If the password isn't among the 10,000 country's most popular passwords
         if r == -5:
             tweaked_prob_factor = tweakingFactors.tweakingFactor[country]["total"]
-            r,explain = rank(password, path, tweaked_prob_factor)
+            r,explain = rank(password, path, "", tweaked_prob_factor)
     else:
-        r, explain = rank(password, path)
+        r, explain = rank(password, path, "")
     y = str(uuid.uuid1())
     dir_path = os.path.join(path, "out")
     file_path = os.path.join(dir_path, str(y) + ".txt")
@@ -117,15 +116,22 @@ def main(username, password, path, country=""):
     return r, explain
 
 def get_country_rank(password, country, path):
-    path = os.path.join(path, country)
-    return rank(password, path)
+    path = os.path.join(path, country, "distributions")
+    return rank(password, path, country)
 
-def rank(password, path, tweaked_country_prob_factor=1):        
-    a1_path = os.path.join(path, "a1.txt")
-    a2_path = os.path.join(path, "a2.txt")
-    a3_path = os.path.join(path, "a3.txt")
-    a4_path = os.path.join(path, "a4.txt")
-    a5_path = os.path.join(path, "a5.txt")
+def get_lists(country):
+    if not country:
+        country = "General"
+    L1 = config_countries.config[country]["L1"]
+    L2 = config_countries.config[country]["L2"]
+    return L1, L2
+
+def rank(password, path, country, tweaked_country_prob_factor=1, ratio = 500):        
+    a1_path = os.path.join(path, f"{ratio}_a1.txt" if country else "a1.txt")
+    a2_path = os.path.join(path, f"{ratio}_a2.txt" if country else "a2.txt")
+    a3_path = os.path.join(path, f"{ratio}_a3.txt" if country else "a3.txt")
+    a4_path = os.path.join(path, f"{ratio}_a4.txt" if country else "a4.txt")
+    a5_path = os.path.join(path, f"{ratio}_a5.txt" if country else "a5.txt")
 
     L = -5
     explain=[]
@@ -170,7 +176,8 @@ def rank(password, path, tweaked_country_prob_factor=1):
                 probability4 = BS.main4(a4_path, pos1)
                 probability5 = BS.main4(a5_path, pos2)
                 prob = maxProb*float(probability4)*float(probability5)*tweaked_country_prob_factor
-                L = ESrank.main2(rank_config.L1, rank_config.L2, prob, 14)
+                L1, L2 = get_lists(country)
+                L = ESrank.main2(L1, L2, prob, 14)
                 L = sum(L)/2
                 
                 explain=[]
@@ -213,7 +220,8 @@ def rank(password, path, tweaked_country_prob_factor=1):
             # TODO We should return independet info about each part so that if one part is weak we'll infrom the user even if other parts where not found and are None
             if (probability1 != None and probability2 != None and probability3 != None and probability4 != None and probability5 != None):
                 prob = float(probability1)*float(probability2)*float(probability3)*float(probability4)*float(probability5)*tweaked_country_prob_factor
-                L = ESrank.main2(rank_config.L1, rank_config.L2, prob, 14)
+                L1, L2 = get_lists(country)
+                L = ESrank.main2(L1, L2, prob, 14)
                 L = sum(L)/2
                 
                 explain=[]

@@ -13,16 +13,12 @@ def main(name, key):
                 while(fp.tell() < end):
                     str_line = fp.readline()
                     line = str_line.split()
-                    if len(line) == 1:
-                        line_key = ""
-                        pp = line[0]
-                    else:
-                        last_space_index = str_line.rfind(" ")
-                        password = str_line[:last_space_index]
-                        for i in line[1:-1]:
-                            password = password+" "+i
-                        line_key = password
-                        pp = line[-1]
+                    last_space_index = str_line.rfind(" ")
+                    password = str_line[:last_space_index]
+                    for i in line[1:-1]:
+                        password = password+" "+i
+                    line_key = password
+                    pp = line[-1]
                     if (key == line_key):
                         return pp
                 return None
@@ -31,16 +27,12 @@ def main(name, key):
             fp.readline()
             str_line = fp.readline()
             line = str_line.split()
-            if len(line) == 1:
-                line_key = ""
-                pp = line[0]
-            else:
-                last_space_index = str_line.rfind(" ")
-                password = str_line[:last_space_index]
-                for i in line[1:-1]:
-                    password = password+" "+i
-                line_key = password
-                pp = line[-1]
+            last_space_index = str_line.rfind(" ")
+            password = str_line[:last_space_index]
+            for i in line[1:-1]:
+                password = password+" "+i
+            line_key = password
+            pp = line[-1]
             if (key == line_key):
                 return pp
             elif (key > line_key):

@@ -97,7 +97,6 @@ def upperLower(S1, S2, p, b):
 
 def main(P, d, gamma, b, p):
     S = [sample(P[i], gamma, b) for i in range(d)]
-
     Scurr = [(S[0][i][0], S[0][i][1], S[0][i][1]) for i in range(len(S[0]))]
 
     for i in range(1, d-1):
