@@ -34,14 +34,24 @@ for root, dirs, files in os.walk(folder_path):
                      values_dict['sum_rank_improved'] = values_dict.get('sum_rank_improved') + rank_2 
                      general_data[country] = values_dict
                      
-                     if country in countries_list:
-                          top_countries_data[country] = values_dict
                 else:
                      values_dict = {'entries': 1, 'sum_rank_original': rank_1, 'sum_rank_improved': rank_2}
                      general_data[country] = values_dict
 
-                     if country in countries_list:
-                          top_countries_data[country] = values_dict
+for country in general_data:
+     values_dict = general_data.get(country)
+     org_rank = values_dict.get('sum_rank_original')
+     imp_rank = values_dict.get('sum_rank_improved')
+     entries = values_dict.get('entries')
+     values_dict['avg_rank_origianl'] = org_rank / entries
+     values_dict['avg_rank_original'] = imp_rank / entries
+     values_dict['diff'] = (imp_rank / entries) - (org_rank / entries)
+
+     general_data[country] = values_dict
+
+     if country in countries_list:
+          top_countries_data[country] = values_dict
+
 
 with open('test_output_general.json', 'w') as file:
      json.dump(general_data, file, indent=4)
