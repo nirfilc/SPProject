@@ -99,7 +99,7 @@ def unLeetWord(word):
         lst.append(7)
     return word, str(tuple(sorted(lst)))
 
-def get_tweaking_factor(country, ratio=500):
+def get_tweaking_factor(country, ratio):
     if ratio == 500:
         return tweakingFactors_500.tweakingFactor[country]["total"]
     elif ratio == 100:
@@ -131,9 +131,9 @@ def main(username, password, path, country="", ratio=500):
             f.write(f"Can't save username, {e}" "\n")
     return r, explain
 
-def get_country_rank(password, country, path, ratio=500):
+def get_country_rank(password, country, path, ratio):
     path = os.path.join(path, country, "distributions")
-    return rank(password, path, country, ratio)
+    return rank(password, path, country, 1, ratio)
 
 def get_lists(country):
     if not country:
@@ -142,7 +142,7 @@ def get_lists(country):
     L2 = config_countries.config[country]["L2"]
     return L1, L2
 
-def rank(password, path, country, tweaked_country_prob_factor=1, ratio = 500):        
+def rank(password, path, country, tweaked_country_prob_factor=1, ratio=500):        
     a1_path = os.path.join(path, f"{ratio}_a1.txt" if country else "a1.txt")
     a2_path = os.path.join(path, f"{ratio}_a2.txt" if country else "a2.txt")
     a3_path = os.path.join(path, f"{ratio}_a3.txt" if country else "a3.txt")
