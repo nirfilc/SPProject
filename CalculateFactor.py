@@ -1,21 +1,22 @@
 import json
+import multiprocessing
 import os
 import BS
+import sys
 
-
-def calculate_specific_country_tweaked_prob_factor(country, path, general_dist_path, dimension):
+def calculate_specific_country_tweaked_prob_factor(country, path, dimension, ratio):
     """
         To be calcullated once offline.
         Sums the probabilities of the n most popular password of country in the general distribution = p_0.
         Then, sums the probability of these passwords in the country's specific distribution = p
         Returns the tweaking factor by this calculation: 1 - (p - p_0)
     """
-    path = os.path.join(path, country, dimension + ".txt")
-    general_dist_path = os.path.join(general_dist_path, dimension + ".txt")
+    general_dist_path = os.path.join(path, dimension + ".txt")
+    country_path = os.path.join(path, country, "distributions", f"{ratio}_{dimension}" + ".txt")
     is_4_or_5 = dimension in ["a4", "a5"]
     missing_passwords = []
     p_0, p = 0, 0
-    with open(path, "r") as fp:
+    with open(country_path, "r") as fp:
         str_line = fp.readline()
         while(str_line):
             line = str_line.split()
@@ -31,8 +32,6 @@ def calculate_specific_country_tweaked_prob_factor(country, path, general_dist_p
                 word = password
                 probability = line[-1]
             p += float(probability)
-            if dimension == "a4":
-                word = word.replace("[", "(").replace("]", ")")
             general_p_str = BS.main4(general_dist_path, word) if is_4_or_5 else  BS.main(general_dist_path, word)
             p_0 += float(general_p_str) if general_p_str else 0
             if not general_dist_path:
@@ -42,22 +41,36 @@ def calculate_specific_country_tweaked_prob_factor(country, path, general_dist_p
     print(country, dimension, res, missing_passwords)
     return 1 - res
 
-def calculate_complete_tweaked_prob_factor(country, path, general_dist_path):
+def calculate_complete_tweaked_prob_factor(country, path, tweaking_factors, lock, ratio):
     dimensions = ["a1", "a2", "a3", "a4", "a5"]
-    tweaking_factors = {}
     tweaking_factor = 1
+    country_dict = {}
     for dimension in dimensions:
-        dimension_tweaking_factor = calculate_specific_country_tweaked_prob_factor(country, path, general_dist_path, dimension) 
+        dimension_tweaking_factor = calculate_specific_country_tweaked_prob_factor(country, path, dimension, ratio) 
         tweaking_factor *= dimension_tweaking_factor
-        tweaking_factors[dimension] = dimension_tweaking_factor
-    tweaking_factors["total"] = tweaking_factor
-    with open(os.path.join(path, country, "tweaking_factors.json"), "w+") as fp:
-        json.dump(tweaking_factors, fp)
+        country_dict[dimension] = dimension_tweaking_factor
+    country_dict["total"] = tweaking_factor
+    with lock:
+        tweaking_factors[country] = country_dict
     return tweaking_factor
 
-countries = ["China", "France", "Germany", "Japan", "Poland", "United Kingdom (common practice)", "Italy", "India"]
-base_path = "C:\\Users\\nirfi\\Desktop\\data_by_country\\new_data"
-for country in countries:
-    # Cahnge the path to the correct one after I fix the text files I generate.
-    tweaking = calculate_complete_tweaked_prob_factor(country, base_path, "C:\\Users\\nirfi\\Desktop\\text_files")
-    print(tweaking)
+def main():
+    ratio = int(sys.argv[1])
+    tweaking_factors = multiprocessing.Manager().dict()
+    lock = multiprocessing.Lock()
+    processes = []
+    countries = ["China", "France", "Germany", "Japan", "Poland", "United Kingdom (common practice)", "Italy", "India"]
+    base_path = "C:\\School_data\\distributions"
+    for country in countries:
+        process = multiprocessing.Process(target=calculate_complete_tweaked_prob_factor, args=(country, base_path, tweaking_factors, lock, ratio))
+        processes.append(process)
+        process.start()
+    for process in processes:
+        process.join()
+    with open(f"C:\\Users\\t-nirfilc\\OneDrive - Microsoft\\Desktop\\school_project\\SPProject\\tweakingFactors_{ratio}.py", "w+") as fp:
+        real_dict = dict(tweaking_factors)
+        json.dump(real_dict, fp)
+
+if __name__ == "__main__":
+    multiprocessing.freeze_support()
+    main()

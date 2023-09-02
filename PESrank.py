@@ -7,7 +7,10 @@ import BS
 from pathlib import Path
 import config_countries
 
-import tweakingFactors
+import tweakingFactors_500
+import tweakingFactors_100
+import tweakingFactors_200
+import tweakingFactors_1000
 
 def keyBoard(word):
     for w in word:
@@ -43,7 +46,7 @@ def unShiftWord(word):
                 lst.append(i)
         else:
             p = p+word[i]
-    return p, str(tuple(lst))
+    return p, str(lst)
 
 
 def isascii(value):
@@ -96,13 +99,23 @@ def unLeetWord(word):
         lst.append(7)
     return word, str(tuple(sorted(lst)))
 
+def get_tweaking_factor(country, ratio=500):
+    if ratio == 500:
+        return tweakingFactors_500.tweakingFactor[country]["total"]
+    elif ratio == 100:
+        return tweakingFactors_100.tweakingFactor[country]["total"]
+    elif ratio == 200:
+        return tweakingFactors_200.tweakingFactor[country]["total"]
+    elif ratio == 1000:
+        return tweakingFactors_1000.tweakingFactor[country]["total"]
 
-def main(username, password, path, country=""): 
+
+def main(username, password, path, country="", ratio=500): 
     if country in ["China", "France", "Germany", "Japan", "Poland", "United Kingdom (common practice)", "Italy", "India"]:
-        r,explain = get_country_rank(password, country, path)
+        r,explain = get_country_rank(password, country, path, ratio)
         # If the password isn't among the 10,000 country's most popular passwords
         if r == -5:
-            tweaked_prob_factor = tweakingFactors.tweakingFactor[country]["total"]
+            tweaked_prob_factor = get_tweaking_factor(country, ratio)
             r,explain = rank(password, path, "", tweaked_prob_factor)
     else:
         r, explain = rank(password, path, "")
@@ -111,13 +124,16 @@ def main(username, password, path, country=""):
     file_path = os.path.join(dir_path, str(y) + ".txt")
     Path(dir_path).mkdir(parents=True, exist_ok=True)
     with open(file_path, "w+") as f:
-        f.write(
-            ",".join([username,  str(math.log2(r)) if r > 0 else "strong!", str(time.asctime())]) + "\n")
+        try:
+            f.write(
+                ",".join([username,  str(math.log2(r)) if r > 0 else "strong!", str(time.asctime())]) + "\n")
+        except Exception as e:
+            f.write(f"Can't save username, {e}" "\n")
     return r, explain
 
-def get_country_rank(password, country, path):
+def get_country_rank(password, country, path, ratio=500):
     path = os.path.join(path, country, "distributions")
-    return rank(password, path, country)
+    return rank(password, path, country, ratio)
 
 def get_lists(country):
     if not country:
@@ -170,7 +186,7 @@ def rank(password, path, country, tweaked_country_prob_factor=1, ratio = 500):
                             g3=probability3
                             
 
-            pos1 = "()"
+            pos1 = "[]"
             pos2 = "()"
             if maxProb > 0:
                 probability4 = BS.main4(a4_path, pos1)
@@ -214,6 +230,8 @@ def rank(password, path, country, tweaked_country_prob_factor=1, ratio = 500):
             probability1 = BS.main(a1_path, P1)
             probability2 = BS.main(a2_path, unLeetP2)
             probability3 = BS.main(a3_path, P3)
+            if country== "China" and pos1 == "[]":
+                print("this")
             probability4 = BS.main4(a4_path, pos1)
             probability5 = BS.main4(a5_path, pos2)
 
@@ -231,7 +249,7 @@ def rank(password, path, country, tweaked_country_prob_factor=1, ratio = 500):
                     explain.append((1,probability1))
                 if P3!="":
                     explain.append((3,probability3))
-                if pos1!="()":
+                if pos1!="[]":
                     explain.append((4,probability4))
                 if pos2!="()":
                     explain.append((5,probability5))
