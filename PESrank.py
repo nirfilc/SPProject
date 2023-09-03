@@ -191,19 +191,22 @@ def rank(password, path, country, tweaked_country_prob_factor=1, ratio=500):
             if maxProb > 0:
                 probability4 = BS.main4(a4_path, pos1)
                 probability5 = BS.main4(a5_path, pos2)
-                prob = maxProb*float(probability4)*float(probability5)*tweaked_country_prob_factor
-                L1, L2 = get_lists(country)
-                L = ESrank.main2(L1, L2, prob, 14)
-                L = sum(L)/2
-                
-                explain=[]
-                if G2!="":
-                    explain.append([2,G2,g2])
-                if G1!="":
-                    explain.append([1,g1])
-                if G3!="":
-                    explain.append([3,g3])
-                
+                if (probability1 != None and probability2 != None and probability3 != None and probability4 != None and probability5 != None):
+                    prob = maxProb*float(probability4)*float(probability5)*tweaked_country_prob_factor
+                    L1, L2 = get_lists(country)
+                    L = ESrank.main2(L1, L2, prob, 14)
+                    L = sum(L)/2
+                    
+                    explain=[]
+                    if G2!="":
+                        explain.append([2,G2,g2])
+                    if G1!="":
+                        explain.append([1,g1])
+                    if G3!="":
+                        explain.append([3,g3])
+                else:
+                    L = -5
+                    explain=[]
             else:
                 L = -5
                 explain=[]

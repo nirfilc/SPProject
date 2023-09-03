@@ -1,7 +1,7 @@
 import math
 import PESrank
 
-res = PESrank.main("goni", "pa55word!", "C:\\Users\\nirfi\\Desktop\\text_files")
+res = PESrank.main("goni", "sakura!", "C:\\School_data\\distributions", "France")
 [rank,explain] = res
 n=905*(10**6)
 ex=False
