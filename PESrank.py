@@ -113,12 +113,15 @@ def get_tweaking_factor(country, ratio):
 def main(username, password, path, country="", ratio=500): 
     if country in ["China", "France", "Germany", "Japan", "Poland", "United Kingdom (common practice)", "Italy", "India"]:
         r,explain = get_country_rank(password, country, path, ratio)
+        isCountryDistribution = True
         # If the password isn't among the 10,000 country's most popular passwords
         if r == -5:
             tweaked_prob_factor = get_tweaking_factor(country, ratio)
             r,explain = rank(password, path, "", tweaked_prob_factor)
+            isCountryDistribution = False
     else:
         r, explain = rank(password, path, "")
+        isCountryDistribution = False
     y = str(uuid.uuid1())
     dir_path = os.path.join(path, "out")
     file_path = os.path.join(dir_path, str(y) + ".txt")
@@ -129,7 +132,7 @@ def main(username, password, path, country="", ratio=500):
                 ",".join([username,  str(math.log2(r)) if r > 0 else "strong!", str(time.asctime())]) + "\n")
         except Exception as e:
             f.write(f"Can't save username, {e}" "\n")
-    return r, explain
+    return r, explain, isCountryDistribution
 
 def get_country_rank(password, country, path, ratio):
     path = os.path.join(path, country)
