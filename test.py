@@ -1,11 +1,20 @@
 import math
 import PESrank
 
-res = PESrank.main("goni", "sakura!", "C:\\School_data\\distributions", "France")
-[rank,explain] = res
+res = PESrank.main("goni", "sakura!", "C:\\School_data\\distributions", "TA")
+[rank, explain, isCountryDistribution] = res
 n=905*(10**6)
 ex=False
-
+countiresSampleSize = {
+    "China": 6152365,
+    "France": 33090150,
+    "Germany": 47567442,
+    "India": 2226505,
+    "Italy": 17904278,
+    "Japan": 4482526,
+    "Poland": 9811562,
+    "United Kingdom (common practice)": 18289350
+}
 print("Your password is ",end="")
 if rank<0:
     print("strong")
