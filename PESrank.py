@@ -110,7 +110,7 @@ def get_tweaking_factor(country, ratio):
         return tweakingFactors_1000.tweakingFactor[country]["total"]
 
 
-def main(username, password, path, country="", ratio=500): 
+def main(username, password, path, country="", ratio=100): 
     if country in ["China", "France", "Germany", "Japan", "Poland", "United Kingdom (common practice)", "Italy", "India"]:
         r,explain = get_country_rank(password, country, path, ratio)
         # If the password isn't among the 10,000 country's most popular passwords
