@@ -135,7 +135,7 @@ def main(username, password, path, country="", ratio=500):
     return r, explain, isCountryDistribution
 
 def get_country_rank(password, country, path, ratio):
-    path = os.path.join(path, country)
+    path = os.path.join(path, "distributions", country)
     return rank(password, path, country, 1, ratio)
 
 def get_lists(country):
