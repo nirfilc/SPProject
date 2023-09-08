@@ -1,0 +1,66 @@
+{
+    "China": {
+        "entries": 55852,
+        "sum_rank_original": 2.0047592061596787e+22,
+        "sum_rank_improved": 2.029518835828678e+22,
+        "avg_rank_origianl": 3.5894134608602714e+17,
+        "avg_rank_original": 3.633744245199237e+17,
+        "diff": 4433078433896576.0
+    },
+    "Germany": {
+        "entries": 509940,
+        "sum_rank_original": 2.4555247010821967e+23,
+        "sum_rank_improved": 2.74535779908509e+23,
+        "avg_rank_origianl": 4.815320824179701e+17,
+        "avg_rank_original": 5.383687883055046e+17,
+        "diff": 5.683670588753446e+16
+    },
+    "France": {
+        "entries": 458988,
+        "sum_rank_original": 1.324461679964715e+24,
+        "sum_rank_improved": 1.3661917274276397e+24,
+        "avg_rank_origianl": 2.8856128699763717e+18,
+        "avg_rank_original": 2.97653038298962e+18,
+        "diff": 9.091751301324851e+16
+    },
+    "United Kingdom (common practice)": {
+        "entries": 327552,
+        "sum_rank_original": 2.301784242497422e+22,
+        "sum_rank_improved": 2.810775385974002e+22,
+        "avg_rank_origianl": 7.027233057644044e+16,
+        "avg_rank_original": 8.581157758078114e+16,
+        "diff": 1.5539247004340696e+16
+    },
+    "Japan": {
+        "entries": 95608,
+        "sum_rank_original": 1.4692499113917746e+20,
+        "sum_rank_improved": 1.5864473086475626e+20,
+        "avg_rank_origianl": 1536743694452111.2,
+        "avg_rank_original": 1659324856337924.2,
+        "diff": 122581161885813.0
+    },
+    "India": {
+        "entries": 33212,
+        "sum_rank_original": 2.7524630942414054e+21,
+        "sum_rank_improved": 3.0429788814596595e+21,
+        "avg_rank_origianl": 8.287555986515131e+16,
+        "avg_rank_original": 9.16228737040726e+16,
+        "diff": 8747313838921296.0
+    },
+    "Italy": {
+        "entries": 171232,
+        "sum_rank_original": 1.7731438489491711e+22,
+        "sum_rank_improved": 2.1299885916763787e+22,
+        "avg_rank_origianl": 1.0355213096554214e+17,
+        "avg_rank_original": 1.2439197064079019e+17,
+        "diff": 2.083983967524805e+16
+    },
+    "Poland": {
+        "entries": 84312,
+        "sum_rank_original": 4.427710582314924e+21,
+        "sum_rank_improved": 5.082921044711037e+21,
+        "avg_rank_origianl": 5.251578164810376e+16,
+        "avg_rank_original": 6.028704152091086e+16,
+        "diff": 7771259872807104.0
+    }
+}
