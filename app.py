@@ -36,8 +36,8 @@ def getPasswordStrength():
                     })
 
 
-
 def prepareResult(res, country):
+    print("GOT HERE")
     [rank, explain, isCountryDistribution] = res
     n = 905*(10**6)
     ex = False
@@ -69,23 +69,23 @@ def prepareResult(res, country):
         else:
             passwordStrength = "Strong"
 
+    explaination = ""
     if isCountryDistribution: 
-        explaination = "According to this study, based on " + n + " leaked passwords from your country: \n"
+        explaination += "According to this study, based on " + str(n) + " leaked passwords from your country: \n"
     else:
-        explaination = "According to this study, based on 905 million leaked passwords: \n"
-
+        explaination += "According to this study, based on 905 million leaked passwords: \n"
     if ex == True:
-        explaination += "Your password is based on the leaked word: '" +str(explain[0][1])+ "' that was used by",int(float(explain[0][2])*n), "people\n"
+        explaination += "Your password is based on the leaked word: '" + str(explain[0][1])+ "' that was used by " + str(int(float(explain[0][2])*n)) + " people\n"
         for lst in explain[1:]:
             if math.ceil(float(lst[1])*n)>=100:
                 if lst[0]==1:
-                    explaination += "It uses a prefix that was used by",math.ceil(float(lst[1])*n), "people\n"
+                    explaination += "It uses a prefix that was used by " + str(math.ceil(float(lst[1])*n)) + " people\n"
                 if lst[0]==3:
-                    explaination += "It uses a suffix that was used by",math.ceil(float(lst[1])*n), "people\n"
+                    explaination += "It uses a suffix that was used by " + str(math.ceil(float(lst[1])*n)) + " people\n"
                 if lst[0]==4:
-                    explaination += "It uses a capitaliation pattern that was used by",math.ceil(float(lst[1])*n), "people\n"
+                    explaination += "It uses a capitaliation pattern that was used by " + str(math.ceil(float(lst[1])*n)) + " people\n"
                 if lst[0]==5:
-                    explaination += "It uses a l33t pattern that was used by",math.ceil(float(lst[1])*n), "people\n"
+                    explaination += "It uses a l33t pattern that was used by " + str(math.ceil(float(lst[1])*n)) + " people\n"
     
     return {"PasswordStrength": passwordStrength, "Explaination": explaination}
 
