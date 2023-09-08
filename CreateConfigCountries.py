@@ -20,6 +20,17 @@ def get_country_config(country, d, gamma, b, base_path, save_sorted, lock, confi
         configs[country] = {"L1": L1, "L2": L2}
 
 def main():
+    """
+        To be calculated once offline.
+        Calculates async the L1 and L2 values for the ESrank algorithm for all the countries.
+
+        Args:
+            base_path: the path to the folder containing the distributions for all the countries.
+            d: number of dimensions (used 5 for this project)
+            gamma: the gamma value used in the ESrank algorithm (used 1.09 for this project)
+            b: the b value used in the ESrank algorithm (used 14 for this project). Should be such taht (b + 1) / b < gamma.
+            save_sorted: whether to save the sorted distributions or not. Good for debugging, to prevent the need to sort the distributions every time.
+    """
     configs = multiprocessing.Manager().dict()
     lock = multiprocessing.Lock()
     base_path = sys.argv[1]

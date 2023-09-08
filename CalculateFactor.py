@@ -6,7 +6,7 @@ import sys
 
 def calculate_specific_country_tweaked_prob_factor(country, path, dimension, ratio):
     """
-        To be calcullated once offline.
+        To be calculated once offline.
         Sums the probabilities of the n most popular password of country in the general distribution = p_0.
         Then, sums the probability of these passwords in the country's specific distribution = p
         Returns the tweaking factor by this calculation: 1 - (p - p_0)
@@ -51,6 +51,9 @@ def calculate_complete_tweaked_prob_factor(country, path, tweaking_factors, lock
     return tweaking_factor
 
 def main():
+    """
+        A program that calculates async the tweaking factor for each country and each dimension and saves the final tweaking factors as a python dictionary.
+    """
     ratios = [100, 200, 500, 1000]
     for ratio in ratios:
         tweaking_factors = multiprocessing.Manager().dict()

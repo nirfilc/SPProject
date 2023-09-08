@@ -5,6 +5,10 @@ import tweakingFactors_200
 import tweakingFactors_500
 import tweakingFactors_1000
 
+"""
+    Utilitis for creating latex tables.
+"""
+
 with open("test_output_general_500_a_and_numbers.json", "r") as f:
     data = json.load(f)
 
