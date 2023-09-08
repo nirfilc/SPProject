@@ -3,8 +3,17 @@
 ## Prerequsits for local run:
 ### Server Side
 * Clone the repository to your machine.
-* Unzip the models zip files.
-* Update the var `path` on line 9 in the file `app.py` to where the models text files are saved.
+* Run `pip install -r requirements.txt`
+* Download the model's text files from the university's nova server: nova.cs.tau.ac.il from the following path: `/specific/a/home/cc/students/csguests/nirfilc/SPProjectData`
+* Unzip `GeneralDistribution` and `distributions` into the directory of the empty `modelData` directory in the repo on your machine. The structure should:
+* - ./modelData
+    - a1.txt
+    - a2.txt
+    - a3.txt
+    - a4.txt
+    - a5.txt
+    - ./distributions
+      - countries' directories    
 * Run `app.py`
 Now the serever is lisening. Deafult ip and port are localhost:5000.
 
