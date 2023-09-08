@@ -37,7 +37,6 @@ def getPasswordStrength():
 
 
 def prepareResult(res, country):
-    print("GOT HERE")
     [rank, explain, isCountryDistribution] = res
     n = 905*(10**6)
     ex = False
