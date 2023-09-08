@@ -6,7 +6,7 @@ import sys
 
 def calculate_specific_country_tweaked_prob_factor(country, path, dimension, ratio):
     """
-        To be calcullated once offline.
+        To be calculated once offline.
         Sums the probabilities of the n most popular password of country in the general distribution = p_0.
         Then, sums the probability of these passwords in the country's specific distribution = p
         Returns the tweaking factor by this calculation: 1 - (p - p_0)
@@ -20,17 +20,13 @@ def calculate_specific_country_tweaked_prob_factor(country, path, dimension, rat
         str_line = fp.readline()
         while(str_line):
             line = str_line.split()
-            if len(line) == 1:
-                word = ""
-                probability = line[0]
-            else:
-                last_space_index = str_line.rfind(" ")
-                password = str_line[:last_space_index]
-                if not is_4_or_5:
-                    for i in line[1:-1]:
-                        password = password+" "+i
-                word = password
-                probability = line[-1]
+            last_space_index = str_line.rfind(" ")
+            password = str_line[:last_space_index]
+            if not is_4_or_5:
+                for i in line[1:-1]:
+                    password = password+" "+i
+            word = password
+            probability = line[-1]
             p += float(probability)
             general_p_str = BS.main4(general_dist_path, word) if is_4_or_5 else  BS.main(general_dist_path, word)
             p_0 += float(general_p_str) if general_p_str else 0
@@ -55,21 +51,25 @@ def calculate_complete_tweaked_prob_factor(country, path, tweaking_factors, lock
     return tweaking_factor
 
 def main():
-    ratio = int(sys.argv[1])
-    tweaking_factors = multiprocessing.Manager().dict()
-    lock = multiprocessing.Lock()
-    processes = []
-    countries = ["China", "France", "Germany", "Japan", "Poland", "United Kingdom (common practice)", "Italy", "India"]
-    base_path = "C:\\School_data\\distributions"
-    for country in countries:
-        process = multiprocessing.Process(target=calculate_complete_tweaked_prob_factor, args=(country, base_path, tweaking_factors, lock, ratio))
-        processes.append(process)
-        process.start()
-    for process in processes:
-        process.join()
-    with open(f"C:\\Users\\t-nirfilc\\OneDrive - Microsoft\\Desktop\\school_project\\SPProject\\tweakingFactors_{ratio}.py", "w+") as fp:
-        real_dict = dict(tweaking_factors)
-        json.dump(real_dict, fp)
+    """
+        A program that calculates async the tweaking factor for each country and each dimension and saves the final tweaking factors as a python dictionary.
+    """
+    ratios = [100, 200, 500, 1000]
+    for ratio in ratios:
+        tweaking_factors = multiprocessing.Manager().dict()
+        lock = multiprocessing.Lock()
+        processes = []
+        countries = ["China", "France", "Germany", "Japan", "Poland", "United Kingdom (common practice)", "Italy", "India"]
+        base_path = "C:\\School_data\\distributions"
+        for country in countries:
+            process = multiprocessing.Process(target=calculate_complete_tweaked_prob_factor, args=(country, base_path, tweaking_factors, lock, ratio))
+            processes.append(process)
+            process.start()
+        for process in processes:
+            process.join()
+        with open(f"C:\\Users\\t-nirfilc\\OneDrive - Microsoft\\Desktop\\school_project\\SPProject\\tweakingFactors_{ratio}.py", "w+") as fp:
+            real_dict = dict(tweaking_factors)
+            json.dump(real_dict, fp)
 
 if __name__ == "__main__":
     multiprocessing.freeze_support()

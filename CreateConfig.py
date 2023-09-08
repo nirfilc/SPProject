@@ -9,6 +9,16 @@ def save_sorted_p(p, i, path):
             f.write("%s\n" % item)
 
 def main():
+    """
+        To be calculated once offline.
+        Calculates the L1 and L2 values for the ESrank algorithm for the general model.
+
+        Args:
+            d: number of dimensions (used 5 for this project)
+            gamma: the gamma value used in the ESrank algorithm (used 1.09 for this project)
+            b: the b value used in the ESrank algorithm (used 14 for this project). Should be such taht (b + 1) / b < gamma.
+            save_sorted: whether to save the sorted distributions or not. Good for debugging, to prevent the need to sort the distributions every time. 
+    """
     base_path = "C:\\School_data\\distributions"
     d = int(sys.argv[2])
     gamma = float(sys.argv[3])
