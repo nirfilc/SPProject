@@ -5,7 +5,7 @@
 * Clone the repository to your machine.
 * Run `pip install -r requirements.txt`
 * Download the model's text files from the university's nova server: nova.cs.tau.ac.il from the following path: `/specific/a/home/cc/students/csguests/nirfilc/SPProjectData`
-* Unzip `GeneralDistribution` and `distributions` into the directory of the empty `modelData` directory in the repo on your machine. The structure should:
+* Unzip `GeneralDistribution` and `distributions` into the same sirectory of your choise on your machine. The structure should be:
 * - ./modelData
     - a1.txt
     - a2.txt
