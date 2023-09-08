@@ -53,6 +53,7 @@ def calculate_complete_tweaked_prob_factor(country, path, tweaking_factors, lock
 def main():
     """
         A program that calculates async the tweaking factor for each country and each dimension and saves the final tweaking factors as a python dictionary.
+        Usage: python CalculateFactor.py
     """
     ratios = [100, 200, 500, 1000]
     for ratio in ratios:
