@@ -82,7 +82,7 @@ def prepareResult(res, country):
     if isCountryDistribution: 
         reason += "According to this study, based on " + str(n) + " leaked passwords from your country"
     else:
-        reason += "According to this study, based on 905 million leaked passwords"
+        reason += "According to this study, based on 905 million leaked passwords from around the world"
     if ex == True:
         baseWord = "Your password is based on the leaked word: '" + str(explain[0][1])+ "' that was used by " + str(int(float(explain[0][2])*n)) + " people"
         for lst in explain[1:]:
