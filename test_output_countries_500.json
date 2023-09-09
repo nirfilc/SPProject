@@ -1,0 +1,66 @@
+{
+    "China": {
+        "avg_rank_origianl": 1.1890908051110765e+17,
+        "avg_rank_original": 1.1602716459971267e+17,
+        "diff": -2881915911394976.0,
+        "entries": 42149,
+        "sum_rank_improved": 4.89042896071329e+21,
+        "sum_rank_original": 5.011898834462676e+21
+    },
+    "France": {
+        "avg_rank_origianl": 1.5573825043186363e+18,
+        "avg_rank_original": 7.261526761518255e+17,
+        "diff": -8.312298281668108e+17,
+        "entries": 212612,
+        "sum_rank_improved": 1.5438877278199194e+23,
+        "sum_rank_original": 3.311182090081939e+23
+    },
+    "Germany": {
+        "avg_rank_origianl": 2.8059419563852163e+17,
+        "avg_rank_original": 3.2066626027213203e+17,
+        "diff": 4.00720646336104e+16,
+        "entries": 218779,
+        "sum_rank_improved": 7.015504375607678e+22,
+        "sum_rank_original": 6.138811752760013e+22
+    },
+    "India": {
+        "avg_rank_origianl": 5.284457393123372e+16,
+        "avg_rank_original": 5.812866292688086e+16,
+        "diff": 5284088995647144.0,
+        "entries": 13136,
+        "sum_rank_improved": 7.63578116207507e+20,
+        "sum_rank_original": 6.941663231606861e+20
+    },
+    "Italy": {
+        "avg_rank_origianl": 6.4861940833373896e+16,
+        "avg_rank_original": 5.464732826618032e+16,
+        "diff": -1.0214612567193576e+16,
+        "entries": 68343,
+        "sum_rank_improved": 3.7347623556955615e+21,
+        "sum_rank_original": 4.432859622375272e+21
+    },
+    "Japan": {
+        "avg_rank_origianl": 960419605875998.8,
+        "avg_rank_original": 1018193215290400.9,
+        "diff": 57773609414402.125,
+        "entries": 38245,
+        "sum_rank_improved": 3.894079951878138e+19,
+        "sum_rank_original": 3.673124782672757e+19
+    },
+    "Poland": {
+        "avg_rank_origianl": 3.33633023689008e+16,
+        "avg_rank_original": 3.884990221816954e+16,
+        "diff": 5486599849268736.0,
+        "entries": 33178,
+        "sum_rank_improved": 1.2889620557944287e+21,
+        "sum_rank_original": 1.1069276459953907e+21
+    },
+    "United Kingdom (common practice)": {
+        "avg_rank_origianl": 5.333463361781411e+16,
+        "avg_rank_original": 6.537352893635448e+16,
+        "diff": 1.2038895318540368e+16,
+        "entries": 108044,
+        "sum_rank_improved": 7.063217560399483e+21,
+        "sum_rank_original": 5.762487154603108e+21
+    }
+}

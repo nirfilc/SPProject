@@ -110,15 +110,18 @@ def get_tweaking_factor(country, ratio):
         return tweakingFactors_1000.tweakingFactor[country]["total"]
 
 
-def main(username, password, path, country="", ratio=500): 
+def main(username, password, path, country="", ratio=100): 
     if country in ["China", "France", "Germany", "Japan", "Poland", "United Kingdom (common practice)", "Italy", "India"]:
         r,explain = get_country_rank(password, country, path, ratio)
+        isCountryDistribution = True
         # If the password isn't among the 10,000 country's most popular passwords
         if r == -5:
             tweaked_prob_factor = get_tweaking_factor(country, ratio)
             r,explain = rank(password, path, "", tweaked_prob_factor)
+            isCountryDistribution = False
     else:
         r, explain = rank(password, path, "")
+        isCountryDistribution = False
     y = str(uuid.uuid1())
     dir_path = os.path.join(path, "out")
     file_path = os.path.join(dir_path, str(y) + ".txt")
@@ -129,10 +132,10 @@ def main(username, password, path, country="", ratio=500):
                 ",".join([username,  str(math.log2(r)) if r > 0 else "strong!", str(time.asctime())]) + "\n")
         except Exception as e:
             f.write(f"Can't save username, {e}" "\n")
-    return r, explain
+    return r, explain, isCountryDistribution
 
 def get_country_rank(password, country, path, ratio):
-    path = os.path.join(path, country, "distributions")
+    path = os.path.join(path, "distributions", country)
     return rank(password, path, country, 1, ratio)
 
 def get_lists(country):
@@ -191,19 +194,22 @@ def rank(password, path, country, tweaked_country_prob_factor=1, ratio=500):
             if maxProb > 0:
                 probability4 = BS.main4(a4_path, pos1)
                 probability5 = BS.main4(a5_path, pos2)
-                prob = maxProb*float(probability4)*float(probability5)*tweaked_country_prob_factor
-                L1, L2 = get_lists(country)
-                L = ESrank.main2(L1, L2, prob, 14)
-                L = sum(L)/2
-                
-                explain=[]
-                if G2!="":
-                    explain.append([2,G2,g2])
-                if G1!="":
-                    explain.append([1,g1])
-                if G3!="":
-                    explain.append([3,g3])
-                
+                if (probability1 != None and probability2 != None and probability3 != None and probability4 != None and probability5 != None):
+                    prob = maxProb*float(probability4)*float(probability5)*tweaked_country_prob_factor
+                    L1, L2 = get_lists(country)
+                    L = ESrank.main2(L1, L2, prob, 14)
+                    L = sum(L)/2
+                    
+                    explain=[]
+                    if G2!="":
+                        explain.append([2,G2,g2])
+                    if G1!="":
+                        explain.append([1,g1])
+                    if G3!="":
+                        explain.append([3,g3])
+                else:
+                    L = -5
+                    explain=[]
             else:
                 L = -5
                 explain=[]
