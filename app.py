@@ -86,7 +86,7 @@ def prepareResult(res, country):
                 if lst[0]==5:
                     explaination += "It uses a l33t pattern that was used by " + str(math.ceil(float(lst[1])*n)) + " people\n"
     
-    return {"PasswordStrength": passwordStrength, "Explaination": explaination}
+    return [passwordStrength, explaination]
 
 
 if __name__ == '__main__':
