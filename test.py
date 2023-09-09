@@ -1,8 +1,8 @@
 import math
 import PESrank
 
-#res = PESrank.main("goni", "123pa$$word!", "C:\\School_data\\distributions", "France")
-#[rank, explain, isCountryDistribution] = res
+res = PESrank.main("goni", "123pa$$word", "C:\\School_data\\distributions", "France")
+[rank, explain, isCountryDistribution] = res
 n=905*(10**6)
 ex=False
 countiresSampleSize = {

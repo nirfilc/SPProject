@@ -110,7 +110,7 @@ def get_tweaking_factor(country, ratio):
         return tweakingFactors_1000.tweakingFactor[country]["total"]
 
 
-def main(username, password, path, country="", ratio=100): 
+def main(username, password, path, country="", ratio=500): 
     if country in ["China", "France", "Germany", "Japan", "Poland", "United Kingdom (common practice)", "Italy", "India"]:
         r,explain = get_country_rank(password, country, path, ratio)
         isCountryDistribution = True
@@ -249,16 +249,11 @@ def rank(password, path, country, tweaked_country_prob_factor=1, ratio=500):
                 L = sum(L)/2
                 
                 explain=[]
-                if unLeetP2!="":
-                    explain.append((2,unLeetP2,probability2))
-                if P1!="":
-                    explain.append((1,probability1))
-                if P3!="":
-                    explain.append((3,probability3))
-                if pos1!="[]":
-                    explain.append((4,probability4))
-                if pos2!="()":
-                    explain.append((5,probability5))
+                explain.append((2,unLeetP2,probability2))
+                explain.append((1,probability1))
+                explain.append((3,probability3))
+                explain.append((4,probability4))
+                explain.append((5,probability5))
                 
             else:
                 L = -5
