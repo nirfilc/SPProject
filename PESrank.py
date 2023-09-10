@@ -236,8 +236,6 @@ def rank(password, path, country, tweaked_country_prob_factor=1, ratio=500):
             probability1 = BS.main(a1_path, P1)
             probability2 = BS.main(a2_path, unLeetP2)
             probability3 = BS.main(a3_path, P3)
-            if country== "China" and pos1 == "[]":
-                print("this")
             probability4 = BS.main4(a4_path, pos1)
             probability5 = BS.main4(a5_path, pos2)
 

@@ -13,7 +13,6 @@ CORS(app, origins='*',
 
 @app.route('/api/getPasswordStrength', methods=['POST'])
 def getPasswordStrength():
-    print("got call")
     data = request.get_json()
     path = "/home/Distributions"
     if 'username' not in data or 'password' not in data:
