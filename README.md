@@ -15,7 +15,7 @@
     - ./distributions
       - countries' directories
 * Make sure the var `path` on line 9 in the file `app.py` is updated to where the models text files are saved (production path is different). 
-* Run `app.py`
+* Run `python app.py`
 * Now the serever is listening. Deafult ip and port are localhost:5000.
 
 ### Client Side
