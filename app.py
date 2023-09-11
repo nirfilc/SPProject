@@ -27,11 +27,11 @@ def getPasswordStrength():
         print(e)
         return jsonify({'error': 'Something went wrong'}), 500
 
-    passwordStrength, reason, baseWord, prefix, suffix, capitaliation, leetPattern = prepareResult(res, country)
+    passwordStrength, used_distribution, baseWord, prefix, suffix, capitaliation, leetPattern = prepareResult(res, country)
     return jsonify({'message': 'Data received successfully',
                     'username': username,
                     'strength': passwordStrength,
-                    'reason': reason ,
+                    'usedDistribution': used_distribution ,
                     'baseWord': baseWord,
                     'prefix': prefix,
                     'suffix': suffix,
