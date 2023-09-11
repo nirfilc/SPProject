@@ -43,7 +43,6 @@ def getPasswordStrength():
 
 def prepareResult(res, country):
     [rank, explain, isCountryDistribution] = res
-    n = 905*(10**6)
     ex = False
 
     countiresSampleSize = {
@@ -57,8 +56,10 @@ def prepareResult(res, country):
         "United Kingdom (common practice)": 18289350
     }
 
-    if isCountryDistribution:
-        n = countiresSampleSize[country]
+    explanation_suffix = "in your country" if isCountryDistribution else "around the world"
+    used_distribution = country if isCountryDistribution else "Global"
+    n = countiresSampleSize[country] if isCountryDistribution else 905*(10**6)
+
 
     passwordStrength = "" 
     if rank<0:
@@ -73,30 +74,26 @@ def prepareResult(res, country):
         else:
             passwordStrength = "Strong"
 
-    reason = ""
     baseWord = ""
     prefix = ""
     suffix = ""
     capitaliation = ""
     leetPattern = ""
-    if isCountryDistribution: 
-        reason += "According to this study, based on " + str(n) + " leaked passwords from your country"
-    else:
-        reason += "According to this study, based on 905 million leaked passwords from around the world"
+
     if ex == True:
-        baseWord = "Your password is based on the leaked word: '" + str(explain[0][1])+ "' that was used by " + str(int(float(explain[0][2])*n)) + " people"
+        baseWord = "Your password is based on the leaked word: '" + str(explain[0][1])+ "' that was used by " + str(int(float(explain[0][2])*n)) + " people" + explanation_suffix
         for lst in explain[1:]:
             if math.ceil(float(lst[1])*n)>=100:
                 if lst[0]==1:
-                    prefix = "It uses a prefix that was used by " + str(math.ceil(float(lst[1])*n)) + " people"
+                    prefix = "It uses a prefix that was used by " + str(math.ceil(float(lst[1])*n)) + " people" + explanation_suffix
                 if lst[0]==3:
-                    suffix = "It uses a suffix that was used by " + str(math.ceil(float(lst[1])*n)) + " people"
+                    suffix = "It uses a suffix that was used by " + str(math.ceil(float(lst[1])*n)) + " people" + explanation_suffix
                 if lst[0]==4:
-                    capitaliation = "It uses a capitaliation pattern that was used by " + str(math.ceil(float(lst[1])*n)) + " people"
+                    capitaliation = "It uses a capitaliation pattern that was used by " + str(math.ceil(float(lst[1])*n)) + " people" + explanation_suffix
                 if lst[0]==5:
-                    leetPattern = "It uses a l33t pattern that was used by " + str(math.ceil(float(lst[1])*n)) + " people"
+                    leetPattern = "It uses a l33t pattern that was used by " + str(math.ceil(float(lst[1])*n)) + " people" + explanation_suffix
     
-    return [passwordStrength, reason, baseWord, prefix, suffix, capitaliation, leetPattern]
+    return [passwordStrength, used_distribution, baseWord, prefix, suffix, capitaliation, leetPattern]
 
 
 if __name__ == '__main__':
