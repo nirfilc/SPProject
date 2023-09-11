@@ -55,7 +55,7 @@ def prepareResult(res, country):
         "United Kingdom (common practice)": 18289350
     }
 
-    explanation_suffix = "in your country" if isCountryDistribution else "around the world"
+    explanation_suffix = " in your country" if isCountryDistribution else " around the world"
     used_distribution = country if isCountryDistribution else "Global"
     n = countiresSampleSize[country] if isCountryDistribution else 905*(10**6)
 
