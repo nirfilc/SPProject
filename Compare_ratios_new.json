@@ -1,0 +1,18 @@
+{
+    "100": {
+        "weighted_diff": 2.8949486620682396e+16,
+        "number_of_improved_countries": 0
+    },
+    "200": {
+        "weighted_diff": 3.2181643304259212e+16,
+        "number_of_improved_countries": 0
+    },
+    "500": {
+        "weighted_diff": 4.016726934836334e+16,
+        "number_of_improved_countries": 0
+    },
+    "1000": {
+        "weighted_diff": 4.639658202200158e+16,
+        "number_of_improved_countries": 0
+    }
+}
