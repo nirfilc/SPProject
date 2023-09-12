@@ -6,7 +6,7 @@ python 3
 * Clone the repository to your machine.
 * cd to it: `cd ./SPProject`
 * Run `pip install -r requirements.txt`
-* Download the model's text files from the university's nova server: nova.cs.tau.ac.il from the following path: `/home/sharifm/teaching/uspw-0368-3544/2023-spring/group-08`
+* Download the model's text files from the university's server: http://c-100.cs.tau.ac.il/ from the following path: `/home/sharifm/teaching/uspw-0368-3544/2023-spring/group-08`
 * Unzip `GeneralDistribution` and `distributions` into a directory of your choise on your machine. The structure should be:
 * - ./modelData
     - a1.txt
