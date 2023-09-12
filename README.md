@@ -20,7 +20,6 @@ python 3
 * Now the serever is listening. Deafult ip and port are localhost:5000.
 
 ### Client Side
-cd into the path...
-To make a call to the password meter, ..... to be added
+follow these instructions: [Frontend](https://github.com/naderkhalaila/Password-Strength-Checker-in-React-main-2#running-the-application-locally)
 
 
