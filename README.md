@@ -1,6 +1,7 @@
 # SPProject
 ## This is a geographic-based password meter based on [PESrank](https://github.com/lirondavid/PESrank/tree/master/PESrank)
 ## Prerequsits for local run:
+python 3
 ### Server Side
 * Clone the repository to your machine.
 * Run `pip install -r requirements.txt`
