@@ -1,11 +1,13 @@
 # SPProject
 ## This is a geographic-based password meter based on [PESrank](https://github.com/lirondavid/PESrank/tree/master/PESrank)
 ## Prerequsits for local run:
+python 3
 ### Server Side
 * Clone the repository to your machine.
+* cd to it: `cd ./SPProject`
 * Run `pip install -r requirements.txt`
-* Download the model's text files from the university's nova server: nova.cs.tau.ac.il from the following path: `/specific/a/home/cc/students/csguests/nirfilc/SPProjectData`
-* Unzip `GeneralDistribution` and `distributions` into the same sirectory of your choise on your machine. The structure should be:
+* Download the model's text files from the university's server: http://c-100.cs.tau.ac.il/ from the following path: `/home/sharifm/teaching/uspw-0368-3544/2023-spring/group-08`
+* Unzip `GeneralDistribution` and `distributions` into a directory of your choise on your machine. The structure should be:
 * - ./modelData
     - a1.txt
     - a2.txt
@@ -19,6 +21,6 @@
 * Now the serever is listening. Deafult ip and port are localhost:5000.
 
 ### Client Side
-To make a call to the password meter, ..... to be added
+follow these instructions: [Frontend](https://github.com/naderkhalaila/Password-Strength-Checker-in-React-main-2#running-the-application-locally)
 
 
