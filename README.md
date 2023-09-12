@@ -19,6 +19,7 @@
 * Now the serever is listening. Deafult ip and port are localhost:5000.
 
 ### Client Side
+cd into the path...
 To make a call to the password meter, ..... to be added
 
 
